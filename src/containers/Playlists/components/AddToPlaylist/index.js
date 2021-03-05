@@ -1,0 +1,1 @@
+export { AddToPlaylist as default } from './AddToPlaylist';
