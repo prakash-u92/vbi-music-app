@@ -138,14 +138,30 @@ const Title = styled.p`
   }
 `;
 
+const DescriptionContent = styled.div``;
+
+const Content = styled.div`
+  width: 50%;
+  display: inline-block;
+  ${props => props.delete && css`
+    text-align: right;
+  `};
+
+  i {
+    cursor: pointer;
+  }
+`;
+
 export {
   Prev,
   Title,
   Detail,
+  Content,
   Thumbnail,
   PlaylistSongs,
   PlaylistTitle,
   PlaylistDetail,
+  DescriptionContent,
   View,
   Text,
   Count,

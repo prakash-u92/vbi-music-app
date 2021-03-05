@@ -5,6 +5,8 @@ import {
   Title,
   Detail,
   Thumbnail,
+  Content,
+  DescriptionContent,
   PlaylistTitle,
   PlaylistSongs,
   PlaylistDetail
@@ -80,6 +82,11 @@ const DetailView = ({ playlist, closePlaylist }) => {
     return formatedDate;
   };
 
+  const removeSong = song => {
+    playlist.songs = playlist.songs.filter(_song => _song.id !== song.id);
+    updatePlaylistSongs();
+  };
+
   return (
     <Fragment>
       <PlaylistDetail key={refresh}>
@@ -135,7 +142,7 @@ const DetailView = ({ playlist, closePlaylist }) => {
           <p className="text-center font-18">No songs</p>
         }
         {playlist.songs.length > 0 &&
-          <Item.Group link style={{  padding: '0px 15%'}}>
+          <Item.Group style={{  padding: '0px 15%'}}>
            {playlist.songs && playlist.songs.map(song => (
               <Item
                 key={song.id}
@@ -150,7 +157,19 @@ const DetailView = ({ playlist, closePlaylist }) => {
                 <Item.Content style={{ padding: '6px 6px 0' }}>
                   <Item.Header>{song.title}</Item.Header>
                   <Item.Description style={{ marginTop: '3px' }}>
-                    <strong>Singers:</strong> Ed Sheeran, Lady Gaga
+                    <DescriptionContent>
+                      <Content>
+                        <strong>Singers:</strong> Ed Sheeran, Lady Gaga
+                      </Content>
+                      <Content delete>
+                        <Icon
+                          size="large"
+                          title="Remove from playlist"
+                          name="trash alternate outline"
+                          onClick={() => removeSong(song)}
+                        />
+                      </Content>
+                    </DescriptionContent>
                   </Item.Description>
                   <Item.Description style={{ marginTop: '3px' }}>
                     <strong>Added at:</strong> {formatDate(song.addedAt)}
