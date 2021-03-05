@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Modal, Form, Button } from 'semantic-ui-react';
 
 const CreatePlaylist = ({ params }) => {
@@ -61,3 +62,9 @@ const CreatePlaylist = ({ params }) => {
 };
 
 export { CreatePlaylist }
+
+CreatePlaylist.propTypes = {
+  params: PropTypes.oneOfType([
+    PropTypes.object
+  ])
+};

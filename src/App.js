@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // Custom components
-import { AllSongs, Albums, Playlists } from './containers';
 import { Header, Tabs } from './components';
+import { AllSongs, Albums, Playlists } from './containers';
 
 export default class App extends Component {
   constructor(props) {
@@ -15,6 +15,9 @@ export default class App extends Component {
     this.fetchData();
   }
 
+  /**
+   * Fetches the data and cache in the localStorage
+   */
   fetchData = () => {
     this.fetchAllSongs().then(songs => {
       this.fetchAllAlbums(songs).then(() => {
@@ -25,6 +28,9 @@ export default class App extends Component {
 
   toggleTab = evt => this.setState({ selectedTab: evt.target.id });
 
+  /**
+   * Fetches the albums details
+   */
   fetchAllAlbums = songs => (
     new Promise((resolve, reject) => {
       let albums = localStorage.getItem('albums');
@@ -37,6 +43,7 @@ export default class App extends Component {
         )
         .then(data => data.json())
         .then(response => {
+          // Push the corresponding songs into albums
           const idsObj = {};
           response.forEach(album => {
             album.songs = [];
@@ -46,6 +53,7 @@ export default class App extends Component {
             idsObj[song.albumId].push(song);
           });
           response.forEach(album => {
+            // Setting first song thumbnail as album thumbnail
             album.thumbnailUrl = idsObj[album.id][0].thumbnailUrl;
             album.songs = idsObj[album.id];
           });
@@ -58,6 +66,9 @@ export default class App extends Component {
     })
   );
 
+  /**
+   * Fetches the songs details
+   */
   fetchAllSongs = () => (
     new Promise((resolve, reject) => {
       let songs = localStorage.getItem('songs');

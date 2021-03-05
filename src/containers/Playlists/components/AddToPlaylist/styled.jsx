@@ -10,7 +10,7 @@ const SearchContainer = styled.div`
 
 const ResultContainer = styled.div`
   width: 100%;
-  padding: 4px 8%;
+   padding-left: 15%;
 `;
 
 export {

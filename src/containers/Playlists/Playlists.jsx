@@ -6,10 +6,10 @@ import { CreatePlaylist } from './../../components';
 export class Playlists extends Component {
   constructor(props) {
     super(props);
+    this.rawList = [];
     this.playlists = [];
     this.state = {
       page: 1,
-      limit: 100,
       playlists: [],
       listView: true,
       showModal: false,
@@ -54,10 +54,10 @@ export class Playlists extends Component {
     let userInput = evt.target.value;
     userInput = userInput ? userInput.trim() : userInput;
     if (userInput) {
-      const filtered = this.playlists.filter(list => list.name.toLowerCase().indexOf(userInput) !== -1);
-      this.setState({ playlists: filtered });
+      this.playlists = this.rawList.filter(list => list.name.toLowerCase().indexOf(userInput) !== -1);
+      this.setState({ playlists: this.playlists.slice(0, 50) });
     } else {
-      this.paginateData(1);
+      this.handlePlaylists();
     }
   };
 
@@ -70,32 +70,31 @@ export class Playlists extends Component {
       this.playlists = [];
       localStorage.setItem('playlists', JSON.stringify([]));
     }
+    this.rawList = this.playlists;
   };
 
-  createPlaylist = newPlayListName => {
+  createPlaylist = playListName => {
     const playlists = JSON.parse(localStorage.getItem('playlists'));
     const timeStamp = new Date().getTime();
     const newPlayList = {
       songs: [],
       id: timeStamp,
+      name: playListName,
       createdAt: timeStamp,
-      name: newPlayListName,
+      updatedAt: timeStamp,
       thumbnailUrl: './playlist.png'
     };
     playlists.push(newPlayList);
+    playlists.sort((list1, list2) => (list2.updatedAt - list1.updatedAt));
     this.playlists = playlists;
     localStorage.setItem('playlists', JSON.stringify(playlists));
-    this.paginateData(1);
+    this.handlePlaylists();
     this.closeModal();
   };
 
-  openModal = () => {
-    this.setState({ showModal: true });
-  };
+  openModal = () => this.setState({ showModal: true });
 
-  closeModal = () => {
-    this.setState({ showModal: false });
-  };
+  closeModal = () => this.setState({ showModal: false });
 
   closePlaylist = playlist => {
     this.setState({ selectedPlaylist: {}, listView: true });
@@ -103,6 +102,7 @@ export class Playlists extends Component {
   };
 
   openPlaylist = playlist => {
+    // Recently added first
     if (playlist.songs && playlist.songs.length) {
       playlist.songs = playlist.songs.sort((song1, song2) => (song2.addedAt - song1.addedAt));
     }

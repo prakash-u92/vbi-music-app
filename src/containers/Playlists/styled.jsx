@@ -152,12 +152,30 @@ const Content = styled.div`
   }
 `;
 
+const TitleEdit = styled.div`
+  height: 25px;
+
+  i {
+    margin-left: 4px;
+    font-size: 16px;
+  }
+
+  .label {
+    line-height: 0;
+  }
+
+  input {
+    height: 25px;
+  }
+`;
+
 export {
   Prev,
   Title,
   Detail,
   Content,
   Thumbnail,
+  TitleEdit,
   PlaylistSongs,
   PlaylistTitle,
   PlaylistDetail,

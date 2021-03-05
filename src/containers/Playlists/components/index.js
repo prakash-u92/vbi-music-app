@@ -1,2 +1,2 @@
-export * from './ConfirmModal';
-export * from './AddToPlaylist';
+export { ConfirmModal } from './ConfirmModal/ConfirmModal';
+export { AddToPlaylist } from './AddToPlaylist/AddToPlaylist';

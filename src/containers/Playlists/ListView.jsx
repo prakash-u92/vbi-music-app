@@ -47,6 +47,7 @@ const ListView = ({ playlists, search, openPlaylist, openModal }) => {
                     borderRadius: '4px',
                     transition: 'all .3s ease-in',
                     borderBottom: '1px solid #D6D6D6',
+                    borderTop: '1px solid rgba(214, 214, 214, .4)',
                     boxShadow: '-4px 0px 0px 0px #ffffff, 0 5px 7px 0 rgb(0 0 0 / 9%)'
                   }}
                   onClick={() => { openPlaylist(playlist); }}
@@ -57,10 +58,10 @@ const ListView = ({ playlists, search, openPlaylist, openModal }) => {
                       {playlist.name}
                     </Item.Header>
                     <Item.Description style={{ marginTop: '3px' }}>
-                      {`Total songs: ${playlist.songs.length}`}
+                      <strong>Total songs:&nbsp;</strong>{playlist.songs.length}
                     </Item.Description>
                     <Item.Description style={{ marginTop: '3px' }}>
-                      {`Created At: ${new Date(playlist.id).toDateString()}`}
+                      <strong>Created At:&nbsp;</strong>{new Date(playlist.createdAt).toDateString()}
                     </Item.Description>
                   </Item.Content>
                 </Item>

@@ -1,18 +1,18 @@
 import React, { Fragment, useState } from 'react';
-import { Item, Image, Icon } from 'semantic-ui-react';
+import { Item, Image, Icon, Input } from 'semantic-ui-react';
 import {
   Prev,
   Title,
   Detail,
-  Thumbnail,
   Content,
-  DescriptionContent,
+  Thumbnail,
+  TitleEdit,
   PlaylistTitle,
   PlaylistSongs,
-  PlaylistDetail
+  PlaylistDetail,
+  DescriptionContent
 } from './styled';
-import { ConfirmModal } from './components/ConfirmModal/ConfirmModal';
-import { AddToPlaylist } from './components/AddToPlaylist/AddToPlaylist';
+import { ConfirmModal, AddToPlaylist } from './components';
 
 const DetailView = ({ playlist, closePlaylist }) => {
   let filteredSongs = [];
@@ -23,7 +23,9 @@ const DetailView = ({ playlist, closePlaylist }) => {
     filteredSongs = allSongs.filter(song => playlistSongs.indexOf(song.id) === -1);
   }
   const [refresh, refreshUI] = useState('');
+  const [edit, enableOrDisableEdit] = useState(false);
   const [showConfirm, toggleConfirm] = useState(false);
+  const [playlistName, updateName] = useState(playlist.name);
   const [showAddToPlaylist, handlePlaylistModal] = useState(false);
 
   const updatePlaylistSongs = () => {
@@ -87,6 +89,19 @@ const DetailView = ({ playlist, closePlaylist }) => {
     updatePlaylistSongs();
   };
 
+  const enableEdit = () => enableOrDisableEdit(true);
+
+  const disableEdit = () => {
+    enableOrDisableEdit(false);
+    playlist.name = playlistName;
+    playlist.updatedAt = new Date().getTime();
+    updatePlaylistSongs();
+  };
+
+  const editTitle = evt => {
+    updateName(evt.target.value);
+  };
+
   return (
     <Fragment>
       <PlaylistDetail key={refresh}>
@@ -103,9 +118,23 @@ const DetailView = ({ playlist, closePlaylist }) => {
             />
           </Thumbnail>
           <PlaylistTitle>
-            <Title>
-              <strong>Playlist name: </strong>{playlist.name}
-            </Title>
+            {!edit &&
+              <Title>
+                <strong>Playlist name: </strong>{playlist.name}
+                <Icon name="edit" link size="small" onClick={enableEdit} />
+              </Title>
+            }
+            {edit &&
+              <TitleEdit>
+                <Input
+                  label="Name"
+                  value={playlistName}
+                  onChange={editTitle}
+                  onBlur={disableEdit}
+                />
+                <Icon name="check" link size="small" onClick={disableEdit} />
+              </TitleEdit>
+            }
             {playlist.songs &&
               <Title>
                 <strong>Total songs: </strong>{playlist.songs.length}
@@ -150,6 +179,7 @@ const DetailView = ({ playlist, closePlaylist }) => {
                   borderRadius: '4px',
                   transition: 'all .3s ease-in',
                   borderBottom: '1px solid #D6D6D6',
+                  borderTop: '1px solid rgba(214, 214, 214, .4)',
                   boxShadow: '-4px 0px 0px 0px #ffffff, 0 5px 7px 0 rgb(0 0 0 / 9%)'
                 }}
               >

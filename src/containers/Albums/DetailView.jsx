@@ -39,7 +39,7 @@ const DetailView = ({ album, closeAlbum }) => {
         </Detail>
       </AlbumDetail>
       <AlbumSongs id="albums">
-        <Item.Group link style={{  padding: '0px 15%'}}>
+        <Item.Group style={{  padding: '0px 15%'}}>
          {album.songs && album.songs.map(song => (
             <Item
               key={song.id}
@@ -47,13 +47,16 @@ const DetailView = ({ album, closeAlbum }) => {
                 borderRadius: '4px',
                 transition: 'all .3s ease-in',
                 borderBottom: '1px solid #D6D6D6',
+                borderTop: '1px solid rgba(214, 214, 214, .4)',
                 boxShadow: '-4px 0px 0px 0px #ffffff, 0 5px 7px 0 rgb(0 0 0 / 9%)'
               }}
             >
               <Item.Image size='tiny' src={song.thumbnailUrl} />
               <Item.Content style={{ padding: '6px 6px 0' }}>
                 <Item.Header>{song.title}</Item.Header>
-                <Item.Description style={{ marginTop: '3px' }}>{`Song: ${song.id}`}</Item.Description>
+                <Item.Description style={{ marginTop: '3px' }}>
+                  {`Song: ${song.id}`}
+                </Item.Description>
               </Item.Content>
             </Item>
           ))}

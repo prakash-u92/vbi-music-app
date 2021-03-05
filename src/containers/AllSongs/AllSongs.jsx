@@ -27,7 +27,6 @@ export class AllSongs extends Component {
     this.state = {
       page: 1,
       songs: [],
-      limit: 100,
       tilesInRow: 8,
       loadOnScroll: true,
       selectedView: 'list'
@@ -152,10 +151,11 @@ export class AllSongs extends Component {
                     <Card.Content>
                       <Card.Header>{song.title}</Card.Header>
                       <Card.Description>
-                        {`Song: ${song.id}`}
+                        <strong>Play time:&nbsp;</strong>
+                        {`0${Math.floor(Math.random() * 10)}.${Math.floor(Math.random() * 50)}`}
                       </Card.Description>
-                      <Card.Description>
-                        {`Play time: 0${Math.floor(Math.random() * 10)}.${Math.floor(Math.random() * 50)}`}
+                      <Card.Description style={{ marginTop: '3px' }}>
+                        <strong>Singers:&nbsp;</strong>Katy Perry, Ed Sheeran
                       </Card.Description>
                     </Card.Content>
                   </Card>
@@ -172,6 +172,7 @@ export class AllSongs extends Component {
                       borderRadius: '4px',
                       transition: 'all .3s ease-in',
                       borderBottom: '1px solid #D6D6D6',
+                      borderTop: '1px solid rgba(214, 214, 214, .4)',
                       boxShadow: '-4px 0px 0px 0px #ffffff, 0 5px 7px 0 rgb(0 0 0 / 9%)'
                     }}
                   >
@@ -179,10 +180,11 @@ export class AllSongs extends Component {
                     <Item.Content style={{ padding: '6px 6px 0' }}>
                       <Item.Header>{song.title}</Item.Header>
                       <Item.Description style={{ marginTop: '3px' }}>
-                        {`Song: ${song.id}`}
+                        <strong>Play time:&nbsp;</strong>
+                        {`0${Math.floor(Math.random() * 10)}.${Math.floor(Math.random() * 50)}`}
                       </Item.Description>
                       <Item.Description style={{ marginTop: '3px' }}>
-                        {`Play time: 0${Math.floor(Math.random() * 10)}.${Math.floor(Math.random() * 50)}`}
+                        <strong>Singers:&nbsp;</strong>Katy Perry, Ed Sheeran
                       </Item.Description>
                     </Item.Content>
                   </Item>

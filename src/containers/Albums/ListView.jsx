@@ -69,10 +69,10 @@ const ListView = ({ albums, search, openAlbum }) => {
                   <Card.Content>
                     <Card.Header>{album.title}</Card.Header>
                     <Card.Description>
-                      {`Album: ${album.id}`}
+                      <strong>Album:&nbsp;</strong>{album.id}
                     </Card.Description>
                     <Card.Description>
-                      {`No.of songs: ${album.songs.length}`}
+                      <strong>No.of songs:&nbsp;</strong>{album.songs.length}
                     </Card.Description>
                   </Card.Content>
                 </Card>
@@ -89,6 +89,7 @@ const ListView = ({ albums, search, openAlbum }) => {
                     borderRadius: '4px',
                     transition: 'all .3s ease-in',
                     borderBottom: '1px solid #D6D6D6',
+                    borderTop: '1px solid rgba(214, 214, 214, .4)',
                     boxShadow: '-4px 0px 0px 0px #ffffff, 0 5px 7px 0 rgb(0 0 0 / 9%)'
                   }}
                   onClick={() => { openAlbum(album); }}
@@ -99,10 +100,10 @@ const ListView = ({ albums, search, openAlbum }) => {
                       {album.title}
                     </Item.Header>
                     <Item.Description style={{ marginTop: '3px' }}>
-                      {`Album: ${album.id}`}
+                      <strong>Album:&nbsp;</strong>{album.id}
                     </Item.Description>
                     <Item.Description style={{ marginTop: '3px' }}>
-                      {`No.of songs: ${album.songs.length}`}
+                      <strong>No.of songs:&nbsp;</strong>{album.songs.length}
                     </Item.Description>
                   </Item.Content>
                 </Item>

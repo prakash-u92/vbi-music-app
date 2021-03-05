@@ -6,10 +6,10 @@ export class Albums extends Component {
   constructor(props) {
     super(props);
     this.albums = [];
+    this.rawList = [];
     this.state = {
       page: 1,
       albums: [],
-      limit: 100,
       listView: true,
       selectedAlbum: {},
       loadOnScroll: true
@@ -25,6 +25,7 @@ export class Albums extends Component {
     const albums = localStorage.getItem('albums');
     if (albums && albums.length) {
       this.albums = JSON.parse(albums);
+      this.rawList = this.albums;
       this.paginateData(1);
     }
   };
@@ -65,10 +66,10 @@ export class Albums extends Component {
     let userInput = evt.target.value;
     userInput = userInput ? userInput.trim() : userInput;
     if (userInput) {
-      const filtered = this.albums.filter(album => album.title.indexOf(userInput) !== -1);
-      this.setState({ albums: filtered });
+      this.albums = this.rawList.filter(album => album.title.indexOf(userInput) !== -1);
+      this.setState({ albums: this.albums.slice(0, 50) });
     } else {
-      this.paginateData(1);
+      this.refreshData();
     }
   };
 
